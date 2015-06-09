@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BT_SPP_Tracker</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_bt__spp">BT_SPP</string>
+    <string name="button_connect_spp">Connect SPP</string>
+    <string name="button_connecting_spp">Connecting</string>
+    <string name="button_connected_spp">Connected SPP</string>
+    <string name="button_disconnect_spp">Disconnect SPP</string>
+
+    <string name="button_connect">Connect</string>
+    <string name="button_connecting">Connecting ...</string>
+    <string name="button_connected">Connected</string>
+
+    <string name="button_send_data">Send</string>
+    <string name="title_activity_mtk__connect">MTK_Connect</string>
+
+</resources>

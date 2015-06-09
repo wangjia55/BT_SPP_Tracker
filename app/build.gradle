@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "21.1.2"
+
+    defaultConfig {
+        applicationId "com.cvte.william.bt_spp_tracker"
+        minSdkVersion 19
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+    task copyNativeLibs(type: Copy) {
+        from(new File(project(':app').getProjectDir(), 'libs')) { include '**/*.so' }
+        into new File(buildDir, 'native-libs')
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn copyNativeLibs
+    }
+
+    clean.dependsOn 'cleanCopyNativeLibs'
+
+    tasks.withType(com.android.build.gradle.tasks.PackageApplication) {
+        pkgTask ->
+            pkgTask.jniFolders = new HashSet<File>()
+            pkgTask.jniFolders.add(new File(buildDir, 'native-libs'))
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile files('libs/commons-codec-1.5.jar')
+    compile files('libs/FotaVdmLib.jar')
+    compile files('libs/signpost-commonshttp4-1.2.1.1.jar')
+    compile files('libs/signpost-core-1.2.1.1.jar')
+    compile files('libs/wearable.jar')
+}
